@@ -31,7 +31,7 @@ export default {
 
 <style scoped lang='less'>
 @import "../assets/base.less";  
-header.on-login {
+header.no-login {
   padding: 0 12% 30px 12%;
   background: @bgColor;
   display: grid;
