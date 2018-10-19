@@ -10,12 +10,27 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
     name:'Login',
   data() {
     return {
-
+      username:'',
+      password:''
     }
+  },
+  methods:{
+    ...mapActions([
+        'login'
+      ]),
+      onLogin(){
+        this.login({username:this.username,password:this.password})
+          .then(()=>{
+            console.log(`${this.username},${this.password}`)
+            this.$router.push({path:'/'})
+          })
+      }
   },
   components: {
 
@@ -25,7 +40,6 @@ export default {
 
 <style scoped lang='less'>
 @import url('../../assets/base.less');
-
 #login, #register {
   display: grid;
   justify-content: center;
@@ -64,5 +78,4 @@ export default {
     }
   }
 }
-
 </style>
