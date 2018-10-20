@@ -42,3 +42,10 @@ Vue.filter('formatDate', function (str) {
   }
 }
 )
+Vue.filter('formatDate2', function (str) {
+  if (!str) return ''
+  var date = new Date(str)
+  var time = new Date().getTime() - date.getTime() //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
+  return `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日${date.getHours()}:${date.getMinutes()}`
+}
+)
