@@ -47,12 +47,12 @@ const actions = {
     // 检测用户是否登录
     async checkLogin({commit,state}){
         
-        // 如果用户已登录
+        // 先从本地store的state去看用户是否登录,如果登录了 就返回true，继续执行下去
         if(state.isLogin) return true
         let res = await auth.getInfo()
         commit('setLogin',{isLogin:res.isLogin})
 
-        // 如果用户未登录
+        // 如果本地没有这个状态，就发ajax请求去服务器，服务器会返回一个isLogin的响应，根据这个值来确定是否登录
         if(!res.isLogin) return false
         commit('setUser',{user:res.data})
         return true
