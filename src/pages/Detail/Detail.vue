@@ -1,21 +1,40 @@
 <template>
   <div id="detail">
     <section class="user-info">
-      <img src="http://cn.gravatar.com/avatar/1?s=128&d=identicon" alt="" class="avatar">
-      <h3>前端异步大揭秘</h3>
-      <p><router-link to="/user">若愚</router-link> 发布于3天前</p>
+      <img :src="user.avatar" :alt="user.username" class="avatar">
+      <h3>{{title}}</h3>
+      <p><router-link :to="`/user/${user.id}`">{{user.username}}</router-link> 发布于{{createdAt}}</p>
     </section>
-    <section class="article">
+    <section class="article" v-html='markdown'>
     </section>
   </div>
 </template>
 
 <script>
+import marked from 'marked'
+import blog from '@/api/blog'
+
 export default {
     name:'Detail',
   data() {
     return {
-
+      title:'',
+      rawContent:'',
+      user:{},
+      createdAt:''
+    }
+  },
+  created(){
+    blog.getDetail({blogId:this.$route.params.blogId}).then(res => {
+      this.title = res.data.title
+      this.rawContent = res.data.content
+      this.createdAt = res.data.createdAt
+      this.user = res.data.user
+    })
+  },
+  computed:{
+    markdown(){
+      return marked(this.rawContent)
     }
   },
   components: {

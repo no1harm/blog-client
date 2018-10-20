@@ -1,13 +1,13 @@
 <template>
   <div id="index">
     <section class="blog-posts">
-      <div class="item" v-for="blog in blogs" :to="`/detail/${blog.id}`">
+      <div class="item" v-for="blog in blogs" >
         <figure class="avatar">
           <img :src="blog.user.avatar" :alt="blog.user.username">
           <figcaption>{{blog.user.username}}</figcaption> 
-        </figure>
-        <h3>{{blog.title}} <span> {{blog.createdAt | formatDate}}</span></h3> 
-        <p>{{blog.description}}</p>
+        </figure>       
+        <h3><router-link :to='`/detail/${blog.id}`'>{{blog.title}}</router-link><span> {{blog.createdAt | formatDate}}</span></h3> 
+        <p><router-link :to='`/detail/${blog.id}`'>{{blog.description}}</router-link></p>
       </div>
     </section>
     <section class="pagination">
@@ -101,12 +101,20 @@ export default {
         font-weight: normal;
       }
     }
+    h3 a {
+      text-decoration: none;
+      color: #333;
+    }
 
     p {
       grid-column: 2;
       grid-row: 2;
       margin-top: 0;
     } 
+    p a{
+      text-decoration: none;
+      color: #666;
+    }
   }
 }
 </style>
