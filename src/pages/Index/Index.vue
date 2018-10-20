@@ -1,36 +1,56 @@
 <template>
   <div id="index">
     <section class="blog-posts">
-      <div class="item">
+      <div class="item" v-for="blog in blogs" :to="`/detail/${blog.id}`">
         <figure class="avatar">
-          <img src="http://cn.gravatar.com/avatar/1?s=128&d=identicon" alt="">
-          <figcaption>若愚</figcaption> 
+          <img :src="blog.user.avatar" :alt="blog.user.username">
+          <figcaption>{{blog.user.username}}</figcaption> 
         </figure>
-        <h3>前端异步大揭秘 <span>3天前</span></h3> 
-        <p>本文以一个简单的文件读写为例，讲解了异步的不同写法，包括 普通的 callback、ES2016中的Promise和Generator、 Node 用于解决回调的co 模块、ES2017中的async/await。适合初步接触 Node.js以及少量 ES6语法的同学阅读...</p>
+        <h3>{{blog.title}} <span> {{blog.createdAt | formatDate}}</span></h3> 
+        <p>{{blog.description}}</p>
       </div>
-      <div class="item">
-        <figure class="avatar">
-          <img src="http://cn.gravatar.com/avatar/1?s=128&d=identicon" alt="">
-          <figcaption>若愚</figcaption> 
-        </figure>
-        <h3>前端异步大揭秘 <span>3天前</span></h3> 
-        <p>本文以一个简单的文件读写为例，讲解了异步的不同写法，包括 普通的 callback、ES2016中的Promise和Generator、 Node 用于解决回调的co 模块、ES2017中的async/await。适合初步接触 Node.js以及少量 ES6语法的同学阅读...</p>
-      </div>
+    </section>
+    <section class="pagination">
+      <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="total"
+      @current-change='ChangePage'>
+      </el-pagination>
     </section>
   </div>
 </template>
 
 <script>
+import blog from '@/api/blog'
+
 export default {
-    name:'Index',
+  name:'Index',
   data() {
     return {
-
+      blogs:[],
+      total:0,
+      page:1
     }
   },
-  components: {
-
+  created(){
+    this.page = parseInt(this.$route.query.page) || 1
+    blog.getIndexBlogs({page:this.page}).then(res =>{
+      this.blogs = res.data
+      console.log(res)
+      this.total = res.total
+      this.page = res.page
+    })
+  },
+  methods:{
+    ChangePage(newVal){
+      blog.getIndexBlogs({page:newVal}).then(res =>{
+        this.blogs = res.data
+        this.total = res.total
+        this.page = res.page
+        this.$router.push({path:'/',query:{page:newVal}})
+      })
+    }
   }
 }
 </script>
@@ -39,7 +59,11 @@ export default {
 @import "../../assets/base.less";
 
 #index {
-
+  .pagination{
+    display: grid;
+    justify-items: center;
+    margin-bottom: 30px;
+  }
   .item {
     display: grid;
     // 这个 item 有两行，每一行的高度都是 auto；有两列，第一列的宽度是 80px ，第二列的宽度是容器剩余宽度
