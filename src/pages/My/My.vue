@@ -15,7 +15,7 @@
         <p><router-link :to="`/detail/${blog.id}`">{{blog.description}}</router-link></p>
         <div class="actions">
           <router-link :to='`/edit/${blog.id}`'>编辑</router-link>
-          <a href="#" @click.prevent="onDetele">删除</a>
+          <a href="#" @click.prevent="onDetele(blog.id)">删除</a>
         </div>
       </div>
     </section>
@@ -24,7 +24,7 @@
       background
       layout="prev, pager, next"
       :total="total"
-      :current-page = "page"
+      :current-page="page"
       @current-change='ChangePage'>
       </el-pagination>
     </section>
@@ -81,6 +81,16 @@ export default {
         this.page = res.page
         this.$router.push({path:"/my",query:{page:newVal}})
       })
+    },
+    async onDetele(blogId){
+      await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+      await blog.deleteBlog({blogId})
+      this.$message.success('删除成功')
+      this.blogs = this.blogs.filter(blog => blog.id !== blogId)
     }
   },
   components: {

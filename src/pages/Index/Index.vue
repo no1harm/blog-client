@@ -15,7 +15,7 @@
       background
       layout="prev, pager, next"
       :total="total"
-      :current-page = "page"
+      :current-page="page"
       @current-change='ChangePage'>
       </el-pagination>
     </section>
