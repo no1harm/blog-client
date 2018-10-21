@@ -94,4 +94,9 @@ export default {
   }
 
 }
+@media (max-width: 768px){
+  #detail .user-info{
+    grid: 40px auto / 80px 1fr;
+  }
+}
 </style>

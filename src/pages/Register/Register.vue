@@ -1,7 +1,7 @@
 <template>
   <div id="register">
     <h4>用户名</h4>
-    <el-input v-model="username" placeholder="用户名" style='width:400px'></el-input>
+    <el-input v-model="username" placeholder="用户名" style='width:300px'></el-input>
     <h4>密码</h4>
     <el-input v-model="password" type="password" placeholder="密码" @keyup.enter="onRegister" ></el-input>
     <el-button size="medium" @click="onRegister">立即注册</el-button>

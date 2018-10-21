@@ -16,6 +16,7 @@
       layout="prev, pager, next"
       :total="total"
       :current-page="page"
+      :pager-count="5"
       @current-change='ChangePage'>
       </el-pagination>
     </section>
@@ -38,7 +39,6 @@ export default {
     this.page = parseInt(this.$route.query.page) || 1
     blog.getIndexBlogs({page:this.page}).then(res =>{
       this.blogs = res.data
-      console.log(res)
       this.total = res.total
       this.page = res.page
     })
@@ -117,5 +117,31 @@ export default {
       color: #666;
     }
   }
+}
+@media (max-width: 768px){
+    #index {
+      
+      .item{
+          margin: 10px 0;
+      
+          .avatar{
+            margin-left: 40px;
+          }
+        }
+    }
+    #index .item .avatar img{
+    width: 40px;
+    height: 40px;
+    }
+    h3{
+      padding-left: 20px;
+    }
+    p{
+      margin-left: 20px;
+    }
+    .el-pagination{
+      white-space: normal; 
+    }
+
 }
 </style>

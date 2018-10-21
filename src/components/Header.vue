@@ -166,5 +166,9 @@ header.login {
     }
   }
 }
-
+@media (max-width: 768px){
+  header.login .avatar{
+        margin-left: 8px;
+  }
+}
 </style>
