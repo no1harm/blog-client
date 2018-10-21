@@ -1,7 +1,7 @@
 <template>
   <div id="detail">
     <section class="user-info">
-      <img :src="user.avatar" :alt="user.username" class="avatar">
+      <router-link :to="`/user/${user.id}`"><img :src="user.avatar" :alt="user.username" class="avatar"></router-link>
       <h3>{{title}}</h3>
       <p><router-link :to="`/user/${user.id}`">{{user.username}}</router-link> 发布于{{createdAt | formatDate2}}</p>
     </section>
@@ -30,6 +30,7 @@ export default {
       this.rawContent = res.data.content
       this.createdAt = res.data.createdAt
       this.user = res.data.user
+      console.log(this.user)
     })
   },
   computed:{

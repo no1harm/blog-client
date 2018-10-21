@@ -50,7 +50,6 @@ const router = new Router({
     {
       path: '/User/:userId',
       component: () =>import ('@/pages/User/User'),
-      meta:{ requiresAuth:true }
     }
   ]
 })
