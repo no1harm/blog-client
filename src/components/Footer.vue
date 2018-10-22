@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-      <p>Email: <a href="mailto:chen09869@gmail.com">chen09869@gmail.com</a> | Wechat: ListenIN1900</p>
+      <p><a href="mailto:chen09869@gmail.com">Email</a> | <a href="https://www.zhihu.com/people/chen-jun-kun/activities">Blog</a> | <a href="https://github.com/no1harm/blog-client">GitHub</a></p>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
+@import "../assets/base.less";  
 .footer {
   align-self: end;
   background-color: #d7d7d7;
@@ -30,6 +31,9 @@ export default {
 a {
   text-decoration: none;
   color: #666;
+}
+a:hover{
+  color:@bgColor;
 }
 @media (max-width: 768px){
   .footer{height: 80px;}
