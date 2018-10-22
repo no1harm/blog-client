@@ -168,7 +168,12 @@ header.login {
 }
 @media (max-width: 768px){
   header.login .avatar{
-        margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 4px;
+  }
+  header.login h1 a{
+    font-size: 30px;
+    padding: 8px;
   }
 }
 </style>
